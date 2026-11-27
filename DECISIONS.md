@@ -14,3 +14,5 @@
 | 28.11.2026 | AI sağlayıcı varsayılan KAPALI, ücretli çağrı kodda engelli | 0 TL; Gemini ücretsiz katmanında veriler eğitimde kullanılabilir. |
 | 28.11.2026 | Panel erişimi: Streamlit özel uygulama + isteğe bağlı PBKDF2 parola | Ücretsiz katmanda 1 özel uygulama hakkı. |
 | 28.11.2026 | Telegram Aşama 3'e ertelendi | Aşama 1 kapsamı dışında. |
+| 28.11.2026 | Depo herkese açık kalacak (kullanıcı kararı) | Araştırma verileri ve raporlar herkes tarafından görülebilir; Actions dakikası açık depoda sınırsız ücretsiz. |
+| 28.11.2026 | Panel parolası yoksa GitHub jetonu kullanılmaz | Herkese açık panelden yetkisiz girdi ve iş tetiklemeyi önler. |

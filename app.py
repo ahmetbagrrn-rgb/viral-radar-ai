@@ -38,10 +38,17 @@ if PW_HASH:
                 st.error("Parola hatalı.")
         st.stop()
 else:
-    st.caption("Ek parola tanımlı değil. Panel Streamlit'te özel (private) uygulama olarak yayınlanmalı.")
+    with st.expander("🔐 Panel parolası tanımlı değil — kurmak için dokunun"):
+        st.write("Bir parola yazın, oluşan satırı Streamlit > Settings > Secrets alanına ekleyin. "
+                 "Parolanın kendisi hiçbir yere kaydedilmez.")
+        np_ = st.text_input("Yeni parola (en az 10 karakter)", type="password", key="yeni_parola")
+        if np_ and len(np_) >= 10:
+            st.code(f'PANEL_PASSWORD_HASH = "{auth.hash_password(np_)}"', language="toml")
+        elif np_:
+            st.warning("Parola en az 10 karakter olmalı.")
 
 REPO, TOKEN = secret("GITHUB_REPO"), secret("GITHUB_TOKEN")
-REMOTE = bool(REPO and TOKEN)
+REMOTE = bool(REPO and TOKEN and PW_HASH)  # parola yoksa jeton kullanılmaz (herkese açık panel koruması)
 
 
 def send(kind: str, payload: dict) -> None:

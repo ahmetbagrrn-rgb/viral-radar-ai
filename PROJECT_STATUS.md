@@ -13,12 +13,11 @@
 | Bağlantı kuyruğu, CSV/JSON aktarımı, gelen kutusu | Çalışıyor, test edildi |
 | Panel (menü 1-4, 8, 10, 11) | Yerelde tüm sayfalar test edildi |
 | GitHub Actions (tests, research) | GitHub'da çalıştı: Testler başarılı, araştırma işi elle tetiklendi ve commit etti (28.11.2026) |
-| Depo | ahmetbagrrn-rgb/viral-radar-ai — DİKKAT: herkese açık (public); özel yapılmalı |
+| Depo | ahmetbagrrn-rgb/viral-radar-ai — herkese açık (kullanıcı kararı) |
 | Streamlit paneli | Yayınlanmadı (kullanıcı girişi gerekli) |
 
 ## Gerçek veri
 Gerçek ürün sayısı: **0**. Kaynak adaptörleri Aşama 2'de. Demo veri yalnızca test içindir.
 
 ## Engeller
-- Depo herkese açık; kurala göre özel olmalı (Settings → Danger Zone → Change visibility).
 - Streamlit yayını kullanıcının GitHub ile girişini gerektirir.
