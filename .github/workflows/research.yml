@@ -1,0 +1,42 @@
+name: Araştırma işi (tek yazıcı)
+on:
+  schedule:
+    # Europe/Istanbul 09:07, 14:07, 20:07 (UTC+3). Cron gecikebilir/atlanabilir; iş her çalışmada bugünü değerlendirir.
+    - cron: "7 6 * * *"
+    - cron: "7 11 * * *"
+    - cron: "7 17 * * *"
+  workflow_dispatch:
+    inputs:
+      demo:
+        description: "Demo veri (sentetik, [DEMO] etiketli)"
+        type: choice
+        options: [dokunma, yukle, sil]
+        default: dokunma
+concurrency:
+  group: viral-radar-writer        # aynı anda yalnızca bir yazıcı
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Demo veri
+        if: github.event_name == 'workflow_dispatch' && inputs.demo != 'dokunma'
+        run: python scripts/load_demo.py ${{ inputs.demo == 'sil' && '--sil' || '' }}
+      - name: Gelen kutusunu işle, değerlendir, rapor üret
+        run: python scripts/run_job.py
+      - name: Değişiklikleri kaydet (yalnızca bütünlük kontrolü geçtiyse buraya gelinir)
+        run: |
+          git config user.name "viral-radar-bot"
+          git config user.email "viral-radar-bot@users.noreply.github.com"
+          git add -A data/viral_radar.db data/inbox reports
+          git diff --cached --quiet || git commit -m "Araştırma işi: $(TZ=Europe/Istanbul date +'%Y-%m-%d %H:%M')"
+          git push
